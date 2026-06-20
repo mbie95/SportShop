@@ -2,7 +2,7 @@ spring:
   application:
     name: sportshop
   datasource:
-    url: jdbc:mysql://localhost:3306/sports-center
+    url: jdbc:mysql://localhost:3306/sport-shop
     username: root
     password: password
   jpa:
