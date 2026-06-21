@@ -43,7 +43,7 @@ INSERT INTO Type (Name) VALUES
 CREATE TABLE `Product` (
                            `Id` INT AUTO_INCREMENT PRIMARY KEY,
                            `Name` VARCHAR(255) NOT NULL,
-                           `Description` TEXT,
+                           `Description` VARCHAR(1000) NOT NULL,
                            `Price` DECIMAL(10, 2) NOT NULL,
                            `PictureUrl` VARCHAR(255),
                            `ProductTypeId` INT NOT NULL,
