@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
     ProductResponse getProductById(Integer productId);
-    Page<ProductResponse> getAllProducts(Pageable pageable);
+    Page<ProductResponse> getProducts(Pageable pageable, Integer brandId, Integer typeId, String keyword);
 }

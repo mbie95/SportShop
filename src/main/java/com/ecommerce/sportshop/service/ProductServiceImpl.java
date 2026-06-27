@@ -6,6 +6,7 @@ import com.ecommerce.sportshop.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,12 +30,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductResponse> getAllProducts(Pageable pageable) {
+    public Page<ProductResponse> getProducts(Pageable pageable, Integer brandId, Integer typeId, String keyword) {
         log.info("Fetching Products!!!");
-        Page<Product> productPage = productRepository.findAll(pageable);
-        Page<ProductResponse> productResponses = productPage
+        Specification<Product> spec = (root, query, builder) -> null;
+
+        if (brandId != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("brand").get("id"), brandId));
+        }
+
+        if (typeId != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("type").get("id"), typeId));
+        }
+
+        if (keyword != null && !keyword.isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("name"), "%" + keyword + "%"));
+        }
+
+        Page<ProductResponse> productResponses = productRepository.findAll(spec, pageable)
                 .map(this::convertToProductResponse);
-        log.info("Fetched All Products!!!");
+        log.info("Fetched Products!!!");
         return productResponses;
     }
 
