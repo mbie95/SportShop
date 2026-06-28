@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
+import type { Product } from "../models/product";
 
 function App() {
 
   //Define a state variable products, using useState
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   // useEffect(() => {
   //   //Function to fetch the data
   //   const fetchData = async () => {
