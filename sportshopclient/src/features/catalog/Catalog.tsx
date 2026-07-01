@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import type { Product } from "../../app/models/product";
+import ProductList from "./ProductList";
 
 export default function Catalog() {
     //Define a state variable products, using useState
@@ -27,16 +28,8 @@ export default function Catalog() {
     }, []);
 
     return (
-        <ul>
-            {products.map(product => (
-            <div key={product.id}>
-            <p>Name: {product.name}</p>
-            <p>Description: {product.description}</p>
-            <p>Price: ${product.price}</p>
-            <p>Brand: {product.brand}</p>
-            <p>Type: {product.type}</p>
-            </div>
-        ))}
-        </ul>
+        <>
+            <ProductList products={products}/>
+        </>
     )
 }
