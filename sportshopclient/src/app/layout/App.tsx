@@ -1,11 +1,16 @@
+import { Container, CssBaseline } from "@mui/material";
 import Catalog from "../../features/catalog/Catalog";
+import Header from "./Header";
 
 function App() {
   return (
-    <div>
-      <h1>Sport shop</h1>
-      <Catalog/>
-    </div>
+    <>
+      <CssBaseline/>
+      <Header/>
+      <Container>
+        <Catalog/>
+      </Container>
+    </>
   )
 }
 
