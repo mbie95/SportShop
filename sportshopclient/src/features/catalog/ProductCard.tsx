@@ -1,6 +1,13 @@
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 import type { Product } from "../../app/models/product";
 
+// title: {
+//   fontWeight:'bold',
+//   overflowWrap: 'break-word', 
+//   wordWrap: 'break-all', 
+//   whiteSpace: 'normal'
+// }
+
 interface Props {
     product : Product;
 }
@@ -23,14 +30,13 @@ export default function ProductCard({product}: Props) {
       }).format(price);
     }
     return (
-         <Card>
+         <Card sx={{ width: "31%" }}>
              <CardHeader avatar={
                 <Avatar sx={{bgcolor: 'secondary.main'}}>
                     {product.name.charAt(0).toUpperCase()}
                 </Avatar>
             }
             title={product.name}
-            titleTypographyProps={{sx:{fontWeight:'bold', color: 'primary.main' }}}
             />
         <CardMedia
           sx={{ height: 140, backgroundSize:'contain'}}
