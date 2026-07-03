@@ -7,7 +7,7 @@ function App() {
     <>
       <CssBaseline/>
       <Header/>
-      <Container>
+      <Container sx={{ paddingTop: "64px" }}>
         <Catalog/>
       </Container>
     </>
