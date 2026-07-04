@@ -1,6 +1,6 @@
 import { Container, CssBaseline } from "@mui/material";
-import Catalog from "../../features/catalog/Catalog";
 import Header from "./Header";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <CssBaseline/>
       <Header/>
       <Container sx={{ paddingTop: "64px" }}>
-        <Catalog/>
+        <Outlet/>
       </Container>
     </>
   )
