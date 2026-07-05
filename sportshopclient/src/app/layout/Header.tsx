@@ -1,10 +1,15 @@
-import { AppBar, Box, List, ListItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Badge, Box, IconButton, List, ListItem, Toolbar, Typography } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 
 const navLinks = [
     {title: 'Home', path: '/'},
     {title: 'Store', path: '/store'},
     {title: 'Contact', path: '/contact'}
+]
+const accountLinks = [
+    {title: 'Login', path:'/login'},
+    {title: 'Register', path:'/register'}
 ]
 
 const navStyles = {
@@ -39,6 +44,20 @@ export default function Header() {
                         </ListItem>
                     ))}
                 </List>
+                <Box sx={{display: "flex", alignItems: "center"}}>
+                    <IconButton size='large' edge='start' color='inherit' sx={{mr:2}}>
+                        <Badge badgeContent="4" color="secondary">
+                            <ShoppingCart/>
+                        </Badge>
+                    </IconButton>
+                    <List sx={{display:'flex'}}>
+                        {accountLinks.map(({title, path})=>(
+                            <ListItem component={NavLink} to={path} key={path} sx={navStyles}>
+                                {title}
+                            </ListItem>
+                        ))}
+                    </List>
+                </Box>
             </Toolbar>
         </AppBar>
     )
