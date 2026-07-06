@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import type { Product } from "../../app/models/product";
 import ProductList from "./ProductList";
+import agent from "../../app/api/agent";
 
 export default function Catalog() {
     //Define a state variable products, using useState
     const [products, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = useState(true);
     // useEffect(() => {
     //   //Function to fetch the data
     //   const fetchData = async () => {
@@ -21,11 +23,20 @@ export default function Catalog() {
     //   }
     //   fetchData();
     // }, []);
-    useEffect(() => {
-        fetch('http://localhost:8081/api/products')
-        .then(response => response.json())
-        .then(data => setProducts(data.content));
+    // useEffect(() => {
+    //     fetch('http://localhost:8081/api/products')
+    //     .then(response => response.json())
+    //     .then(data => setProducts(data.content));
+    // }, []);
+    useEffect(()=>{
+        agent.Store.list()
+        .then((products)=>setProducts(products.content))
+        .catch(error=>console.log(error))
+        .finally(()=>setLoading(false));
     }, []);
+    
+    if(loading) return <h3>Loading Products...</h3>
+    if(!products) return <h3>Unable to load Products</h3>
 
     return (
         <>
