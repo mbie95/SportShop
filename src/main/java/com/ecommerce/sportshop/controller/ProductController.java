@@ -1,5 +1,6 @@
 package com.ecommerce.sportshop.controller;
 
+import com.ecommerce.sportshop.exception.NotFoundException;
 import com.ecommerce.sportshop.model.BrandResponse;
 import com.ecommerce.sportshop.model.ProductResponse;
 import com.ecommerce.sportshop.model.TypeResponse;
@@ -32,7 +33,12 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id")Integer productId){
-        ProductResponse productResponse = productService.getProductById(productId);
+        ProductResponse productResponse = null;
+        try {
+            productResponse = productService.getProductById(productId);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(productResponse, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
     @GetMapping()
