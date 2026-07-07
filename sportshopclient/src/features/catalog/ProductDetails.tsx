@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { Product } from "../../app/models/product";
 import agent from "../../app/api/agent";
+import NotFound from "../../app/errors/NotFoundError";
 
 export default function ProductDetails() {
 
@@ -25,7 +26,7 @@ export default function ProductDetails() {
     }, [id])
 
     if(loading) return <h3>Loading Product...</h3>
-    if(!product) return <h3>Product not found</h3>
+    if(!product) return <NotFound/>
 
     const extractImageName = (item: Product): string | null => {
       if(item && item.pictureUrl){

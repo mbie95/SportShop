@@ -1,5 +1,6 @@
 import axios from "axios";
-import type {AxiosResponse} from "axios";
+import type {AxiosError, AxiosResponse} from "axios";
+import { router } from "../router/Routes";
 
 axios.defaults.baseURL = 'http://localhost:8081/api/';
 
@@ -20,5 +21,22 @@ const Store = {
 const agent = {
     Store
 }
+
+axios.interceptors.response.use(async response=>{
+    return response
+}, (error: AxiosError)=>{
+    const {status} = error.response as AxiosResponse; 
+    switch(status){
+        case 404:
+            router.navigate('/not-found');
+            break;
+        case 500:
+            router.navigate('/server-error');
+            break;
+        default:
+            break;
+    }
+    return Promise.reject(error.message);
+})
 
 export default agent;
