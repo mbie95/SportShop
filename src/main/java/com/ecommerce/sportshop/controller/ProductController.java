@@ -1,6 +1,5 @@
 package com.ecommerce.sportshop.controller;
 
-import com.ecommerce.sportshop.exception.NotFoundException;
 import com.ecommerce.sportshop.model.BrandResponse;
 import com.ecommerce.sportshop.model.ProductResponse;
 import com.ecommerce.sportshop.model.TypeResponse;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,12 +31,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id")Integer productId){
-        ProductResponse productResponse = null;
-        try {
-            productResponse = productService.getProductById(productId);
-        } catch (NotFoundException e) {
-            return new ResponseEntity<>(productResponse, HttpStatus.NOT_FOUND);
-        }
+        ProductResponse productResponse = productService.getProductById(productId);
         return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
     @GetMapping()
