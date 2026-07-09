@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import type { Product } from "../../app/models/product";
 import ProductList from "./ProductList";
 import agent from "../../app/api/agent";
+import Spinner from "../../app/layout/Spinner";
 
 export default function Catalog() {
     //Define a state variable products, using useState
@@ -35,7 +36,7 @@ export default function Catalog() {
         .finally(()=>setLoading(false));
     }, []);
     
-    if(loading) return <h3>Loading Products...</h3>
+    if(loading) return <Spinner message='Loading Products...'/>
     if(!products) return <h3>Unable to load Products</h3>
 
     return (
