@@ -20,6 +20,7 @@ const requests = {
 }
 
 const Store = {
+    apiUrl: 'http://localhost:8081/api/products',
     list:() => requests.get('products'),
     details:(id: number) => requests.get(`products/${id}`),
     types: () => requests.get('products/types').then(types => [{ id: 0, name: 'All' }, ...types]),

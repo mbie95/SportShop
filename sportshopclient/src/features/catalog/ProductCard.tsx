@@ -43,7 +43,7 @@ export default function ProductCard({product}: Props) {
     }
 
     return (
-         <Card sx={{ width: "31%" }}>
+         <Card sx={{ width: "100%" }}>
              <CardHeader avatar={
                 <Avatar sx={{bgcolor: 'secondary.main'}}>
                     {product.name.charAt(0).toUpperCase()}
