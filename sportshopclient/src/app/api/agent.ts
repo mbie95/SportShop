@@ -21,7 +21,10 @@ const requests = {
 
 const Store = {
     list:() => requests.get('products'),
-    details:(id: number) => requests.get(`products/${id}`)
+    details:(id: number) => requests.get(`products/${id}`),
+    types: () => requests.get('products/types').then(types => [{ id: 0, name: 'All' }, ...types]),
+    brands: () => requests.get('products/brands').then(brands => [{ id: 0, name: 'All' }, ...brands]),
+    search: (keyword: string) => requests.get(`products?keyword=${keyword}`)
 }
 
 const Basket = {
