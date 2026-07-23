@@ -32,6 +32,11 @@ public class JwtHelper {
         return generateToken(claims, userDetails.getUsername());
     }
 
+    public Boolean validateToken(String token, UserDetails userDetails){
+        final String username = getUserNameFromToken(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
     private boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
