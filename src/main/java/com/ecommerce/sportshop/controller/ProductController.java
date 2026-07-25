@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+
     private final ProductService productService;
     private final BrandService brandService;
     private final TypeService typeService;
@@ -30,11 +32,14 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id")Integer productId){
         ProductResponse productResponse = productService.getProductById(productId);
         return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
+
     @GetMapping()
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Page<ProductResponse>> getProducts(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size,
@@ -51,6 +56,7 @@ public class ProductController {
         Page<ProductResponse> productResponses = productService.getProducts(pageable, brandId, typeId, keyword);
         return new ResponseEntity<>(productResponses, HttpStatus.OK);
     }
+
     @GetMapping("/brands")
     public ResponseEntity<List<BrandResponse>> getBrands(){
         List<BrandResponse> brandResponses = brandService.getAllBrands();
