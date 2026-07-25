@@ -99,12 +99,17 @@ const Basket = {
     }
 }
 
-const agent = {
-    Store,
-    Basket
+const Account = {
+    login: (values:any) => requests.post('auth/login', values)
 }
 
-axios.interceptors.response.use(async response=>{
+const agent = {
+    Store,
+    Basket,
+    Account
+}
+
+axios.interceptors.response.use(async response => {
     await idle();
     return response
 }, (error: AxiosError)=>{
