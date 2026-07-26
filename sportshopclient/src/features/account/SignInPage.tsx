@@ -57,13 +57,16 @@ export default function SignInPage() {
               >
                 Sign In
               </LoadingButton>
-              <Grid container>
-                <Grid sx={{size: 'xs'}}>
+              <Grid container sx={{
+                display: "flex",
+                justifyContent: "space-between"
+              }}>
+                <Grid sx={{display:'flex', size: 'xs'}}>
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
-                <Grid>
+                <Grid sx={{display:'flex'}}>
                   <Link href="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
