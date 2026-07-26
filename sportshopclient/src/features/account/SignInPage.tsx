@@ -62,12 +62,12 @@ export default function SignInPage() {
                 justifyContent: "space-between"
               }}>
                 <Grid sx={{display:'flex', size: 'xs'}}>
-                  <Link href="#" variant="body2">
+                  <Link to="#">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid sx={{display:'flex'}}>
-                  <Link href="/register" variant="body2">
+                  <Link to="/register">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
