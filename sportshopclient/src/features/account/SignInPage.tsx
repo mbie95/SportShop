@@ -1,9 +1,29 @@
 import { LoadingButton } from "@mui/lab";
 import { Container, CssBaseline, Box, Avatar, Typography, TextField, FormControlLabel, Checkbox, Grid } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useAppDispatch } from "../../app/store/configureStore";
+import { useForm } from "react-hook-form";
+import type { FieldValues } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function SignInPage() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const dispatch = useAppDispatch();
+    const {register, handleSubmit, formState:{isSubmitting, errors, isValid}} = useForm({
+        mode:'onTouched'
+    })
+
+    async function submitForm(data: FieldValues) {
+        try {
+            console.log(data); 
+        } catch(error) {
+            console.log('Error signing in:', error);
+            toast.error('Sign in Failed. Please try again');
+        }
+    }
+
     return (
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -21,7 +41,7 @@ export default function SignInPage() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" /*onSubmit={handleSubmit(submitForm)}*/ noValidate sx={{ mt: 1 }}>
+            <Box component="form" onSubmit={handleSubmit(submitForm)} noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -29,9 +49,9 @@ export default function SignInPage() {
                 id="username"
                 label="Username"
                 autoFocus
-                // {...register('username', {required:'Username is required'})}
-                // error={!!errors.username}
-                // helperText={errors?.username?.message as string}
+                {...register('username', {required:'Username is required'})}
+                error={!!errors.username}
+                helperText={errors?.username?.message as string}
               />
               <TextField
                 margin="normal"
@@ -40,16 +60,16 @@ export default function SignInPage() {
                 label="Password"
                 type="password"
                 id="password"
-                // {...register('password', {required:'Password is required'})}
-                // error={!!errors.password}
-                // helperText={errors?.password?.message as string}
+                {...register('password', {required:'Password is required'})}
+                error={!!errors.password}
+                helperText={errors?.password?.message as string}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <LoadingButton //loading={isSubmitting}
-                //disabled={!isValid}
+              <LoadingButton loading={isSubmitting}
+                disabled={!isValid}
                 type="submit"
                 fullWidth
                 variant="contained"
