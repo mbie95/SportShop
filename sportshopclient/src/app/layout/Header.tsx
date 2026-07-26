@@ -43,7 +43,7 @@ export default function Header() {
             }}>
                 <Box sx={{display: "flex", alignItems: "center"}}>
                     <Typography variant="h6">
-                        My sport shop
+                        My sport shop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </Typography>
                 </Box>
                 <List sx={{display:'flex'}}>
