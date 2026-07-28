@@ -83,4 +83,5 @@ export const accountSlice = createSlice({
         });
     })
 })
+
 export const {logOut, clearError} = accountSlice.actions;
