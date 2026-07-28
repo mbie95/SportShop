@@ -2,10 +2,11 @@ import { LoadingButton } from "@mui/lab";
 import { Container, CssBaseline, Box, Avatar, Typography, TextField, FormControlLabel, Checkbox, Grid } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { useAppDispatch } from "../../app/store/configureStore";
+import { store, useAppDispatch } from "../../app/store/configureStore";
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { toast } from "react-toastify";
+import { signInUser } from "./accountSlice";
 
 export default function SignInPage() {
     const navigate = useNavigate();
@@ -17,7 +18,16 @@ export default function SignInPage() {
 
     async function submitForm(data: FieldValues) {
         try {
-            console.log(data); 
+            //dispatching the sign in action
+            await dispatch(signInUser(data));
+            //check if the user is logged in
+            const {user} = store.getState().account;
+            if(user) {
+              //navigate it to store page
+              navigate(location.state?.from || '/store');
+              } else {
+              toast.error('Sign in Failed. Please try again');
+            } 
         } catch(error) {
             console.log('Error signing in:', error);
             toast.error('Sign in Failed. Please try again');
