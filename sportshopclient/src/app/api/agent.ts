@@ -1,19 +1,30 @@
 import axios from "axios";
-import type {AxiosError, AxiosResponse} from "axios";
+import type {AxiosError, AxiosRequestConfig, AxiosResponse} from "axios";
 import { router } from "../router/Routes";
 import { toast } from "react-toastify";
 import basketService from "./basketService";
 import type { Dispatch } from "redux";
 import type { Product } from "../models/product";
 import type { Basket } from "../models/basket";
+import type { User } from "../models/user"
 
 axios.defaults.baseURL = 'http://localhost:8081/api/';
 
 const idle = () => new Promise(resolve => setTimeout(resolve, 100));
 const responseBody = (response: AxiosResponse) => response.data;
 
+function getBearerToken() {
+    const userString = localStorage.getItem('user');
+    if(userString) {
+        const user = JSON.parse(userString) as User;
+        return user.token;
+    } else {
+        toast.error('Please Sign In');
+    }
+}
+
 const requests = {
-    get: (url: string) => axios.get(url).then(responseBody),
+    get: (url: string, config?: AxiosRequestConfig) => axios.get(url, config).then(responseBody),
     post: (url: string, body: object) => axios.post(url, body).then(responseBody),
     put: (url: string, body: object) => axios.put(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody)
@@ -30,7 +41,10 @@ const Store = {
         if(typeId !== undefined) {
             requestUrl += `&typeId=${typeId}`;
         }
-        return requests.get(requestUrl);
+        const token = 'Bearer ' + getBearerToken()
+        return requests.get(requestUrl, {headers: {
+            Authorization: token
+        }});
     },
     details:(id: number) => requests.get(`products/${id}`),
     types: () => requests.get('products/types').then(types => [{ id: 0, name: 'All' }, ...types]),

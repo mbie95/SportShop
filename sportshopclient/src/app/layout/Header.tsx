@@ -3,6 +3,7 @@ import { ShoppingCart } from "@mui/icons-material";
 import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "../store/configureStore";
 import { useEffect } from "react";
+import SignedInMenu from "./SignedInMenu";
 
 const navLinks = [
     {title: 'Home', path: '/'},
@@ -28,6 +29,7 @@ const navStyles = {
 
 export default function Header() {
     const {basket} = useAppSelector(state => state.basket);
+    const {user} = useAppSelector(state => state.account);
     console.log('Basket: ', basket);
     useEffect(()=>{
         console.log('Basket Items:', basket?.items);
@@ -59,13 +61,16 @@ export default function Header() {
                             <ShoppingCart/>
                         </Badge>
                     </IconButton>
-                    <List sx={{display:'flex'}}>
-                        {accountLinks.map(({title, path})=>(
-                            <ListItem component={NavLink} to={path} key={path} sx={navStyles}>
-                                {title}
-                            </ListItem>
-                        ))}
-                    </List>
+                    {user?(
+                    <SignedInMenu/>):(
+                        <List sx={{display:'flex'}}>
+                            {accountLinks.map(({title, path})=>(
+                                <ListItem component={NavLink} to={path} key={path} sx={navStyles}>
+                                    {title}
+                                </ListItem>
+                            ))}
+                        </List>
+                    )} 
                 </Box>
             </Toolbar>
         </AppBar>
