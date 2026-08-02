@@ -32,7 +32,7 @@ const requests = {
 
 const Store = {
     apiUrl: 'http://localhost:8081/api/products',
-    list:(page: number, size: number, brandId?: number, typeId?: number, url?: string)=> {
+    list:(page: number, size: number, brandId?: number, typeId?: number, url?: string) => {
         let requestUrl = url || 'http://localhost:8081/api/products?';
         requestUrl += `&page=${page}&size=${size}`;
         if(brandId !== undefined) {
@@ -46,7 +46,12 @@ const Store = {
             Authorization: token
         }});
     },
-    details:(id: number) => requests.get(`products/${id}`),
+    details:(id: number) => {
+        const token = 'Bearer ' + getBearerToken()
+        return requests.get(`products/${id}`, {headers: {
+            Authorization: token
+        }})
+    },
     types: () => requests.get('products/types').then(types => [{ id: 0, name: 'All' }, ...types]),
     brands: () => requests.get('products/brands').then(brands => [{ id: 0, name: 'All' }, ...brands]),
     search: (keyword: string) => requests.get(`products?keyword=${keyword}`)
