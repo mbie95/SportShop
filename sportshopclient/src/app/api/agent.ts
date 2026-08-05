@@ -25,7 +25,7 @@ function getBearerToken() {
 
 const requests = {
     get: (url: string, config?: AxiosRequestConfig) => axios.get(url, config).then(responseBody),
-    post: (url: string, body: object) => axios.post(url, body).then(responseBody),
+    post: (url: string, body: object, config?: AxiosRequestConfig) => axios.post(url, body, config).then(responseBody),
     put: (url: string, body: object) => axios.put(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody)
 }
@@ -122,10 +122,32 @@ const Account = {
     login: (values:any) => requests.post('auth/login', values)
 }
 
+const Order = {
+  list:() => {
+        const token = 'Bearer ' + getBearerToken()
+        requests.get('orders', {headers: {
+            Authorization: token
+        }})
+    },
+  fetch:(id:number) => {
+        const token = 'Bearer ' + getBearerToken()
+        requests.get(`orders/${id}`, {headers: {
+            Authorization: token
+        }})
+    },
+  create:(values: any) => {
+        const token = 'Bearer ' + getBearerToken()
+        requests.post('orders', values, {headers: {
+            Authorization: token
+        }})
+    }
+}
+
 const agent = {
     Store,
     Basket,
-    Account
+    Account,
+    Order
 }
 
 axios.interceptors.response.use(async response => {
