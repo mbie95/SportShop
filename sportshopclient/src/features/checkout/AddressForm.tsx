@@ -76,6 +76,7 @@ export default function AddressForm(){
           </Grid>
           <Grid sx={{xs: 12, sm: 6}}>
             <TextField
+              required
               id="state"
               {...register("state")}
               label="State/Province/Region"
