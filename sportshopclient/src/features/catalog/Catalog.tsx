@@ -55,8 +55,9 @@ export default function Catalog() {
     //     .finally(()=>setLoading(false));
     // }, []);
     useEffect(() => {
+        let page = currentPage - 1;
         Promise.all([
-            agent.Store.list(currentPage, pageSize),
+            agent.Store.list(page, pageSize),
             agent.Store.brands(),
             agent.Store.types()
         ]).then(([productsRes, brandsResp, typesResp]) => {
