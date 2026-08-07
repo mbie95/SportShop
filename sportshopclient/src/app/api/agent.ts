@@ -125,19 +125,19 @@ const Account = {
 const Order = {
   list:() => {
         const token = 'Bearer ' + getBearerToken()
-        requests.get('orders', {headers: {
+        return requests.get('orders', {headers: {
             Authorization: token
         }})
     },
   fetch:(id:number) => {
         const token = 'Bearer ' + getBearerToken()
-        requests.get(`orders/${id}`, {headers: {
+        return requests.get(`orders/${id}`, {headers: {
             Authorization: token
         }})
     },
   create:(values: any) => {
         const token = 'Bearer ' + getBearerToken()
-        requests.post('orders', values, {headers: {
+        return requests.post('orders', values, {headers: {
             Authorization: token
         }})
     }

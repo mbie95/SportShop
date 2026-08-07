@@ -11,6 +11,7 @@ import NotFound from "../errors/NotFoundError";
 import ServerError from "../errors/ServerError";
 import RequireAuth from "./RequireAuth";
 import CheckoutPage from "../../features/checkout/CheckoutPage";
+import Order from "../../features/order/Order";
 
 export const router = createBrowserRouter ([
     {
@@ -19,7 +20,8 @@ export const router = createBrowserRouter ([
         children: [
             {
                 element: <RequireAuth/>, children:[
-                    {path:'checkout', element:<CheckoutPage/>}
+                    {path:'checkout', element:<CheckoutPage/>},
+                    {path:'orders', element:<Order/>}
                 ]
             },
             {path:'', element:<HomePage/>},
