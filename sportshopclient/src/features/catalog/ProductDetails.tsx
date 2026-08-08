@@ -82,7 +82,7 @@ export default function ProductDetails() {
                     await agent.Basket.decrementItemQuantity(item.id, Math.abs(quantityDifference), dispatch);
                 }
             } else {
-                await agent.Basket.addItem(newItem, dispatch);
+                await agent.Basket.addItem(newItem, quantity, dispatch);
             }
             setSubmitting(false);
         } catch (error) {

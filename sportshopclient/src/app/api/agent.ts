@@ -71,9 +71,9 @@ const Basket = {
             throw error;
         }
     },
-    addItem: async(product: Product, dispatch: Dispatch) => {
+    addItem: async(product: Product, quantity: number = 1, dispatch: Dispatch) => {
         try {
-            const result = await basketService.addItemToBasket(product, 1, dispatch);
+            const result = await basketService.addItemToBasket(product, quantity, dispatch);
             console.log(result);
             return result;
         } catch(error) {

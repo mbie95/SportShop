@@ -33,7 +33,7 @@ export default function ProductCard({product}: Props) {
     const dispatch = useAppDispatch();
     function addItem() {
       setLoading(true);
-      agent.Basket.addItem(product, dispatch)
+      agent.Basket.addItem(product, 1, dispatch)
         .then(response => {
           console.log('New Basket:', response.basket);
           dispatch(setBasket(response.basket));
