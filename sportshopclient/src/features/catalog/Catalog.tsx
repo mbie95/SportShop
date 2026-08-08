@@ -91,7 +91,7 @@ export default function Catalog() {
             agent.Store.search(searchKeyword)
                 .then((productsRes) => {
                     setProducts(productsRes.content);
-                    setTotaItems(productsRes.length);
+                    setTotaItems(productsRes.totalElements);
                 })
                 .catch((error)=>console.error(error))
                 .finally(()=> setLoading(false));
