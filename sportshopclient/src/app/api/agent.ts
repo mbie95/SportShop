@@ -54,7 +54,12 @@ const Store = {
     },
     types: () => requests.get('products/types').then(types => [{ id: 0, name: 'All' }, ...types]),
     brands: () => requests.get('products/brands').then(brands => [{ id: 0, name: 'All' }, ...brands]),
-    search: (keyword: string) => requests.get(`products?keyword=${keyword}`)
+    search: (keyword: string) => {
+        const token = 'Bearer ' + getBearerToken()
+        return requests.get(`products?keyword=${keyword}`, {headers: {
+            Authorization: token
+        }})
+    }
 }
 
 const Basket = {

@@ -88,7 +88,6 @@ export default function Catalog() {
             url = url.replace(/&$/, "");
         }
         if(searchKeyword) {
-            console.log(searchKeyword);
             agent.Store.search(searchKeyword)
                 .then((productsRes) => {
                     setProducts(productsRes.content);
